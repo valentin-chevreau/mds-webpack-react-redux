@@ -1,0 +1,16 @@
+{"courses" :
+  [
+    {
+      "id": 0,
+      "name": "dev"
+    },
+    {
+      "id": 1,
+      "name": "marketing"
+    },
+    {
+      "id": 2,
+      "name": "secu"
+    }
+  ]
+}

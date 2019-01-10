@@ -1,8 +1,7 @@
-import { combineReducers } from 'react-redux'
-import news from './components/news/reducer'
-​
-const reducers = {
-	news
-}
+import { combineReducers } from 'redux'
 
-export default combineReducers(reducers)
+import courses from './components/qrCode/reducers'
+
+export default combineReducers({
+  courses
+})

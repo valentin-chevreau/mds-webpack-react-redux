@@ -5,6 +5,7 @@ import Login from './components/login'
 import Header from './components/header'
 import Footer from './components/footer'
 import Code from './components/qrCode'
+// import Courses from './components/qrCode/components/courses'
 
 class Routes extends Component {
   render() {

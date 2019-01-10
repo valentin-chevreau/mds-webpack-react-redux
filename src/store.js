@@ -22,4 +22,4 @@ const productMode = (env) => {
   )
 }
 
-export default productMode(process.env.NODE_END)
+export default productMode(process.env.NODE_ENV)

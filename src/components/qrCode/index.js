@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import QRCode from 'qrcode-react'
 
+import { getLastEvents } from './actions'
+
 class Code extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+
+    dispatch(getLastEvents())
+  }
+
   render() {
+    const { courses } = this.props
+
+    console.log(courses)
+
     return (
       <div className="container">
-        <h1>QRCode de validation de cours</h1>
-        <div className="row">
-          <div className="col-sm" />
-          <div className="col-sm">
-            <QRCode value="ValentinC" />
-          </div>
-          <div className="col-sm" />
-        </div>
+        <QRCode value="data" />
       </div>
     )
   }
 }
 
-export default Code
+export default connect(state => state)(Code)
