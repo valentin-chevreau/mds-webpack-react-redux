@@ -1,5 +1,5 @@
 {
-  "presets": ["env", "react"],
+  "presets": ["env", "react", "@babel/present-react"],
   "plugins":
   ["@babel/plugin-transform-runtime"]
 }
