@@ -1,5 +1,4 @@
 {
-  "presets": ["env", "react", "@babel/present-react"],
-  "plugins":
-  ["@babel/plugin-transform-runtime"]
+  "presets": ["react", "es2015"],
+  "plugins": ["syntax-async-functions"]
 }
