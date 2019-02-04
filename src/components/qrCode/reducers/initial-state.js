@@ -5,7 +5,7 @@ export default {
       id: 0,
       name: 'dev',
       hash: 'hkjhdfoqsiovdbfhjuin',
-      date: '...'
+      date: '2019-02-04'
     },
     {
       id: 1,

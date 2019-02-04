@@ -8,7 +8,16 @@ class Courses extends Component {
     this.state = {
       data: props.courses.data
     }
-    console.log(this.state)
+  }
+
+  formatDate() {
+    const date = new Date()
+    const day = `0${date.getDate()}`.slice(-2)
+    const month = `0${date.getMonth() + 1}`.slice(-2)
+    const year = date.getFullYear()
+    const dateString = `${year}-${month}-${day}`
+
+    return dateString
   }
 
   dataToString() {
@@ -16,26 +25,22 @@ class Courses extends Component {
     // this.state : state du component
     const { courses } = this.props
     const { data } = courses
-    const tabQrCode = []
     let qrCode = ''
+    const now = this.formatDate()
     data.map((lesson) => {
-      // if(lesson.date === Date.now()) {
-
-      // }
-      qrCode = lesson.id + lesson.name + lesson.hash
-      tabQrCode.push(qrCode)
+      if (lesson.date === now) {
+        qrCode = lesson.id + lesson.name + lesson.hash
+        return ''
+      }
       return ''
-    // Ici, recup la date du jour
-    // Comparer a la date de ta lesson
-    // Si dateLesson =
     })
-    return tabQrCode
+    return qrCode
   }
 
   render() {
     return (
       <div className="container">
-        <QRCode value={this.dataToString()[0]} />
+        <QRCode value={this.dataToString()} />
       </div>
     )
   }
