@@ -48,7 +48,7 @@ class Login extends Component {
               </div>
               <div className="col">
                 Password
-                <input type="password" className="form-control" name="password" value={password} onChange={this.handlePasswordChange} />
+                <input type="password" className="form-control" name="password" autoComplete="" value={password} onChange={this.handlePasswordChange} />
                 <br />
               </div>
               <input type="submit" value="Submit" className="btn btn-primary mb-2" />

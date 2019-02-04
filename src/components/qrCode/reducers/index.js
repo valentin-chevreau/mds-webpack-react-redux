@@ -1,18 +1,17 @@
 import { fromJs } from 'immutable'
-
 import initialState from './initial-state'
 import actionsType from '../actions/actions-type'
 
-const getLastEvents = (state, actions) => (
+const getCurrentClassLesson = (state, actions) => (
   fromJs(state)
-    .setIn(['data'], actions.data)
+    .setIn(['courses'], actions.courses)
     .toJS()
 )
 
 const courses = (state = initialState, actions) => {
   switch (actions.type) {
-    case actionsType.GET_LAST_EVENTS:
-      return getLastEvents(state, actions)
+    case actionsType.GET_CURRENT_CLASS_LESSON:
+      return getCurrentClassLesson(state, actions)
     default:
       return state
   }

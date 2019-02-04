@@ -1,27 +1,44 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import QRCode from 'qrcode-react'
+import { connect } from 'react-redux'
 
-import { getLastEvents } from './actions'
+class Courses extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: props.courses.data
+    }
+    console.log(this.state)
+  }
 
-class Code extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props
+  dataToString() {
+    // Props : state globale de l'app
+    // this.state : state du component
+    const { courses } = this.props
+    const { data } = courses
+    const tabQrCode = []
+    let qrCode = ''
+    data.map((lesson) => {
+      // if(lesson.date === Date.now()) {
 
-    dispatch(getLastEvents())
+      // }
+      qrCode = lesson.id + lesson.name + lesson.hash
+      tabQrCode.push(qrCode)
+      return ''
+    // Ici, recup la date du jour
+    // Comparer a la date de ta lesson
+    // Si dateLesson =
+    })
+    return tabQrCode
   }
 
   render() {
-    const { courses } = this.props
-
-    console.log(courses)
-
     return (
       <div className="container">
-        <QRCode value="data" />
+        <QRCode value={this.dataToString()[0]} />
       </div>
     )
   }
 }
 
-export default connect(state => state)(Code)
+export default connect(state => state)(Courses)

@@ -4,8 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './components/login'
 import Header from './components/header'
 import Footer from './components/footer'
-import Code from './components/qrCode'
-// import Courses from './components/qrCode/components/courses'
+import Courses from './components/qrCode'
 
 class Routes extends Component {
   render() {
@@ -16,7 +15,7 @@ class Routes extends Component {
             <Header />
             <Switch>
               <Route path="/" component={Login} exact />
-              <Route path="/qrcode" component={Code} exact />
+              <Route path="/qrcode" component={Courses} exact />
               <Route path="/login" component={Login} exact />
               <Login />
             </Switch>

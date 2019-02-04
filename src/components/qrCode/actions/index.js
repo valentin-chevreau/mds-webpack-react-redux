@@ -1,22 +1,11 @@
 import actionsType from './actions-type'
 import store from '../../../store'
-import courses from '../../../mock/courses.json'
 
-/**
- * Format events
- * @param {Array} events
- * @return {Array} eventsFormatted
- */
+const getImage = data => ({
+  type: actionsType.GET_CURRENT_CLASS_LESSON,
+  courses
+})
 
-const getEventsData = () => {
-  store.dispatch(courses)
-}
-
-export const getLastEvents = async () => {
-  const events = await getEventsData()
-
-  return {
-    type: actionsType.GET_LAST_EVENTS,
-    data: getEventsData(events)
-  }
+export const getLessons = (data) => {
+  store.dispatch(getImage(data))
 }
