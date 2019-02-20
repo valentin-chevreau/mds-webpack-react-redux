@@ -4,8 +4,8 @@ export default {
     {
       id: 0,
       name: 'dev',
-      hash: 'hkjhdfoqsiovdbfhjuin',
-      date: '2019-02-04'
+      hash: 'chevreau-18fevrier2019-coursdedev-elasticsearch',
+      date: '2019-02-20'
     },
     {
       id: 1,
