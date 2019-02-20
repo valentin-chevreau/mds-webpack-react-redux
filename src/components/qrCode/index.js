@@ -40,6 +40,12 @@ class Courses extends Component {
   render() {
     return (
       <div className="container">
+        <h1>QRCode de présence en cours</h1>
+        <p>
+          Merci de bien vouloir scanner
+          le QRCode depuis votre application Mobile.
+          Une authentification est nécessaire pour valider votre présence.
+        </p>
         <QRCode value={this.dataToString()} />
       </div>
     )
