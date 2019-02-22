@@ -5,6 +5,7 @@ import Login from './components/login'
 import Header from './components/header'
 import Footer from './components/footer'
 import Courses from './components/qrCode'
+import Reader from './components/qrCodeReader'
 
 class Routes extends Component {
   render() {
@@ -14,9 +15,10 @@ class Routes extends Component {
           <div>
             <Header />
             <Switch>
-              <Route path="/" component={Login} exact />
+              <Route path="/" component={Courses} exact />
               <Route path="/qrcode" component={Courses} exact />
               <Route path="/login" component={Login} exact />
+              <Route path="/reader" component={Reader} exact />
               <Login />
             </Switch>
             <Footer />
