@@ -61,38 +61,25 @@ class Login extends Component {
 
     return (
       <div className="container">
-        <section className="col-lg-4">
-          <form onSubmit={this.handleSubmit}>
-            <div className="row">
-              <fieldset>
-                <legend>
-                  Connexion à un compte utilisateur
-                </legend>
-                <div className="col">
-                  Username
-                  <input type="text" className="form-control" name="username" value={username} onChange={this.handleUsernameChange} />
-                </div>
-                <div className="col">
-                  Password
-                  <input type="password" className="form-control" name="password" autoComplete="" value={password} onChange={this.handlePasswordChange} />
-                  <br />
-                </div>
-                <input type="submit" value="Submit" className="btn btn-primary mb-2" />
+        <div className="row">
+          <form className="form-row" onSubmit={this.handleSubmit}>
+            <fieldset>
+              <legend>Connection to user account</legend>
+              <div className="form-group col-lg-8">
+                Username
+                <input type="text" className="form-control" name="username" value={username} onChange={this.handleUsernameChange} />
+              </div>
+              <div className="form-group col-lg-8">
+                Password
+                <input type="password" className="form-control" name="password" autoComplete="" value={password} onChange={this.handlePasswordChange} />
                 <br />
-              </fieldset>
-            </div>
+              </div>
+              <div className="form-group col-lg-8">
+                <input type="submit" value="Submit" className="btn btn-primary mb-2" />
+              </div>
+            </fieldset>
           </form>
-        </section>
-        <aside className="col-lg-4">
-          <p>
-            This is the actual username:
-            {` ${username} `}
-          </p>
-          <p>
-            This is the actual passwd:
-            {` ${password} `}
-          </p>
-        </aside>
+        </div>
       </div>
     )
   }
