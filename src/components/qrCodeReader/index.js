@@ -20,10 +20,13 @@ class Reader extends Component {
   }
 
   handleError(err) {
-    console.error(err)
+    return err
   }
 
   render() {
+    const { result } = this.state
+    const { delay } = this.state
+
     return (
       <div className="container">
         <div className="row">
@@ -35,16 +38,23 @@ class Reader extends Component {
               Pour lire votre QrCode, placez celui-ci dans la zone rouge affichée.
             </p>
             <QrReader
-              delay={this.delay}
+              delay={delay}
               onError={this.handleError}
               onScan={this.handleScan}
-              style={{ width: '40%' }}
+              style={{ width: '100%' }}
             />
           </div>
           <div className="col-lg-5">
+            <h1>Résultats</h1>
             <p>
-              Ce que veut dire votre QrCode :
-              {this.result}
+              Les informations de votre QrCode
+              <br />
+              {result}
+            </p>
+            <p>
+              Delay
+              <br />
+              {delay}
             </p>
           </div>
         </div>
