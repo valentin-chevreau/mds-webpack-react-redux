@@ -3,17 +3,30 @@ export default {
   [
     {
       id: 0,
-      name: 'dev',
-      hash: 'chevreau-18fevrier2019-coursdedev-elasticsearch',
-      date: '2019-02-20'
+      name: 'optimisation_performance',
+      teacher_name: 'geoffrey_beauny',
+      classroom: 'reussite',
+      public: 'm1_expert_si',
+      hash: 'hkjhdfoqsiovdbfhjuin',
+      date: '2019-02-21'
     },
     {
       id: 1,
-      name: 'marketing'
+      name: 'optimisation_performance',
+      teacher_name: 'geoffrey_beauny',
+      classroom: 'reussite',
+      public: 'm1_expert_si',
+      hash: 'hkjhdfoqsiovdbfhjuin',
+      date: '2019-02-22'
     },
     {
       id: 2,
-      name: 'secu'
+      name: 'optimisation_performance',
+      teacher_name: 'geoffrey_beauny',
+      classroom: 'reussite',
+      public: 'm1_expert_si',
+      hash: 'hkjhdfoqsiovdbfhjuin',
+      date: '2019-02-23'
     }
   ]
 }

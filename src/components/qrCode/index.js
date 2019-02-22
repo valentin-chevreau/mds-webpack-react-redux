@@ -21,16 +21,24 @@ class Courses extends Component {
   }
 
   dataToString() {
-    // Props : state globale de l'app
-    // this.state : state du component
+    /*
+    *
+    //Props : state globale de l'app
+    this.state : state du component
+    */
     const { courses } = this.props
     const { data } = courses
     let qrCode = ''
     const now = this.formatDate()
     data.map((lesson) => {
       if (lesson.date === now) {
-        qrCode = lesson.id + lesson.name + lesson.hash
-        return ''
+        qrCode = (lesson.id)
+          + lesson.name
+          + lesson.teacher_name
+          + lesson.classroom
+          + lesson.public
+          + lesson.hash
+          + lesson.date
       }
       return ''
     })
@@ -40,21 +48,33 @@ class Courses extends Component {
   render() {
     return (
       <div className="container">
-        <p>
-          Test
-        </p>
         <div className="row">
-          <div className="col-lg-6">
-            <h1>QRCode de présence en cours</h1>
-            <p>
-              Merci de bien vouloir scanner
-              le QRCode depuis votre application Mobile.
-              Une authentification est nécessaire pour valider votre présence.
-            </p>
-          </div>
-          <div className="col-lg-6">
-            <QRCode value={this.dataToString()} />
-          </div>
+          <section className="col-lg-5">
+            <h1>Informations</h1>
+
+            <p>Le QrCode permet de contrôler que vous êtes bien venus en cours.</p>
+
+            <p>Le QrCode sera affiché par votre intervenant au début de votre heure en cours.</p>
+
+          </section>
+          <section className="col-lg-5">
+            <h1>Validité du QrCode</h1>
+            {this.dataToString() ? (
+              <QRCode
+                value={this.dataToString()}
+                size={200}
+                includeMargin={false}
+                bgColor="#FFFFFF"
+                fgColor="#000000"
+                level="J"
+                renderAs="canvas"
+              />
+            ) : (
+              <div className="alert alert-warning" role="alert">
+                Pas de QrCode disponible actuellement !
+              </div>
+            )}
+          </section>
         </div>
       </div>
     )
