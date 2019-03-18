@@ -1,16 +1,39 @@
 import React, { Component } from 'react'
 
+import Redirect from 'react-router/es/Redirect'
+import user from '../../mock/user.json'
+
 class Login extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      redirect: false
     }
-
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    this.setState({ data: this.formatUsers(user.users) })
+  }
+
+  formatUsers(events) {
+    return events.map(event => ({
+      id: event.id,
+      name: event.name,
+      password: event.password
+    }))
+  }
+
+  update() {
+    this.state.data = this.formatUsers(user.users)
+    this.setState({
+      data: this.formatUsers(user.users)
+    })
   }
 
   handleUsernameChange(event) {
@@ -25,39 +48,80 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const { update } = this.props
+    this.updateBind = this.update.bind(this)
     const { username } = this.state
     const { password } = this.state
-    update(username)
-    update(password)
+    this.updateBind(username)
+    this.updateBind(password)
+    this.checkingExistingUser()
+  }
+
+  redirect() {
+    this.setState({ redirect: true })
+  }
+
+  checkingExistingUser() {
+    let userValidated = ''
+    const { data } = this.state
+    let { username } = this.state
+    let { password } = this.state
+
+    data.map((existingUsers) => {
+      if (existingUsers.name === username && existingUsers.password === password) {
+        username = this.state
+        password = existingUsers.name
+        userValidated = existingUsers.id + existingUsers.name
+        localStorage.setItem('user', JSON.stringify(existingUsers.name))
+        this.redirect()
+      }
+      return ''
+    })
+    return userValidated
   }
 
   render() {
-    const { username } = this.state
-    const { password } = this.state
-
+    const { username, password, redirect } = this.state
+    if (redirect) {
+      return <Redirect to="/qrcode" />
+    }
     return (
       <div className="container">
-        <form onSubmit={this.handleSubmit}>
-          <div className="row">
-            <fieldset>
-              <legend>Connection to user account</legend>
-              <div className="col">
-                Username
-                <input type="text" className="form-control" name="username" value={username} onChange={this.handleUsernameChange} />
-              </div>
-              <div className="col">
-                Password
-                <input type="password" className="form-control" name="password" value={password} onChange={this.handlePasswordChange} />
+        <div className="row">
+          <div className="col-lg-4" />
+          <div className="col-lg-4">
+            <br />
+            <form onSubmit={this.handleSubmit}>
+              <fieldset>
+                <legend>Login</legend>
+                <div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={username}
+                    placeholder="Username"
+                    onChange={this.handleUsernameChange}
+                  />
+                </div>
                 <br />
-              </div>
-              <input type="submit" value="Submit" className="btn btn-primary mb-2" />
-              <br />
-              {` ${username} `}
-              {` ${password} `}
-            </fieldset>
+                <div>
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={this.handlePasswordChange}
+                  />
+                  <br />
+                </div>
+                <input type="submit" value="Envoyer" className="btn btn-info col-lg-12" onClick={this.handleSubmit} />
+                <br />
+              </fieldset>
+            </form>
+            <br />
           </div>
-        </form>
+        </div>
       </div>
     )
   }
