@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger'
 import reducers from './reducers'
 
 const productMode = (env) => {
-  if (env !== 'production') {
+  if (env === 'production') {
     return createStore(
       reducers,
       compose(
