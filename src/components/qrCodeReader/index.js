@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import QrReader from 'react-qr-reader'
+import { connect } from 'react-redux'
 
 class Reader extends Component {
   constructor(props) {
     super(props)
     this.state = {
       delay: 300,
-      result: 'No result'
+      result: 'No result',
+      data: props.courses.data,
+      presenceOk: false
     }
     this.handleScan = this.handleScan.bind(this)
   }
@@ -21,6 +24,35 @@ class Reader extends Component {
 
   handleError(err) {
     return err
+  }
+
+  formatDate() {
+    const date = new Date()
+    const day = `0${date.getDate()}`.slice(-2)
+    const month = `0${date.getMonth() + 1}`.slice(-2)
+    const year = date.getFullYear()
+    const dateString = `${year}-${month}-${day}`
+
+    return dateString
+  }
+
+  compareDataToMock() {
+    const { courses } = this.props
+    const { data } = courses
+    let item = ''
+    const now = this.formatDate()
+    data.map((course) => {
+      if (course.date === now) {
+        item = course.id
+          + course.name
+          + course.teacher_name
+          + course.classroom
+          + course.public
+          + course.date
+      }
+      return ''
+    })
+    return item
   }
 
   render() {
@@ -50,11 +82,11 @@ class Reader extends Component {
               Les informations de votre QrCode
               <br />
               {result}
-            </p>
-            <p>
-              Delay
               <br />
-              {delay}
+              <span>
+                Mock:
+                { this.compareDataToMock() }
+              </span>
             </p>
           </div>
         </div>
@@ -63,4 +95,4 @@ class Reader extends Component {
   }
 }
 
-export default Reader
+export default connect(state => state)(Reader)

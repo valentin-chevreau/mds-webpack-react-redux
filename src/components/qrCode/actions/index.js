@@ -1,11 +1,14 @@
-import actionsType from './actions-type'
-import store from '../../../store'
+/*
+  import actionsType from './actions-type'
+  import store from '../../../store'
 
-const getImage = data => ({
-  type: actionsType.GET_CURRENT_CLASS_LESSON,
-  courses
-})
+  const getLogin = data => ({
+    type: actionsType.GET_CURRENT_CLASS_LESSON,
+    user
+  })
 
-export const getLessons = (data) => {
-  store.dispatch(getImage(data))
+  export const getLogin = (data) => {
+    store.dispatch(getLogin(data))
+
 }
+*/

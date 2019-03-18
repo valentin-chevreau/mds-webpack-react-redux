@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import QRCode from 'qrcode-react'
 import { connect } from 'react-redux'
 
+/**
+ * Class courses to display QrCode
+ */
 class Courses extends Component {
   constructor(props) {
     super(props)
@@ -10,6 +13,10 @@ class Courses extends Component {
     }
   }
 
+  /**
+   * formatDate()
+   * @returns {string}
+   */
   formatDate() {
     const date = new Date()
     const day = `0${date.getDate()}`.slice(-2)
@@ -20,9 +27,12 @@ class Courses extends Component {
     return dateString
   }
 
+  /**
+   *
+   * @returns {string}
+   */
   dataToString() {
     /*
-    *
     //Props : state globale de l'app
     this.state : state du component
     */
@@ -32,37 +42,33 @@ class Courses extends Component {
     const now = this.formatDate()
     data.map((lesson) => {
       if (lesson.date === now) {
-        qrCode = (lesson.id)
+        qrCode = lesson.id
           + lesson.name
           + lesson.teacher_name
           + lesson.classroom
           + lesson.public
-          + lesson.hash
           + lesson.date
+        // console.log(localStorage)
       }
       return ''
     })
     return qrCode
   }
 
+  /**
+   *
+   * @returns {*}
+   */
   render() {
     return (
       <div className="container">
         <div className="row">
-          <section className="col-lg-5">
-            <h1>Informations</h1>
-
-            <p>Le QrCode permet de contrôler que vous êtes bien venus en cours.</p>
-
-            <p>Le QrCode sera affiché par votre intervenant au début de votre heure en cours.</p>
-
-          </section>
-          <section className="col-lg-5">
-            <h1>Validité du QrCode</h1>
+          <div className="col-lg-4" />
+          <div className="col-lg-4">
             {this.dataToString() ? (
               <QRCode
                 value={this.dataToString()}
-                size={200}
+                size={340}
                 includeMargin={false}
                 bgColor="#FFFFFF"
                 fgColor="#000000"
@@ -70,11 +76,12 @@ class Courses extends Component {
                 renderAs="canvas"
               />
             ) : (
-              <div className="alert alert-warning" role="alert">
-                Pas de QrCode disponible actuellement !
+              <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Aucun cours prévu ce jour.</strong>
               </div>
+
             )}
-          </section>
+          </div>
         </div>
       </div>
     )
