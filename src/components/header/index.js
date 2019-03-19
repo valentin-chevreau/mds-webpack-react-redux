@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link className="navbar-brand" to="#">School absences</Link>
+        <Link className="navbar-brand" to="#">Gestion des absences</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -24,8 +24,11 @@ class Header extends Component {
                 <Link className="nav-item nav-link" to="/login">Sign in</Link>
               ) : (
                 <div style={{ display: 'flex' }}>
-                  <Link className="nav-item nav-link" to="/reader">Lire</Link>
-                  <Link className="nav-item nav-link" to="/qrcode">QrCode</Link>
+                  { localStorage.getItem('status') === '0' ? (
+                    <Link className="nav-item nav-link" to="/reader">Lire le QrCode</Link>
+                  ) : (
+                    <Link className="nav-item nav-link" to="/qrcode">Présenter le QrCode</Link>
+                  ) }
                   <Link className="nav-item nav-link" to="/logout">Logout</Link>
                 </div>
               )

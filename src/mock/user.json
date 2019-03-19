@@ -2,28 +2,34 @@
   {
     "id": 0,
     "name": "valentin",
-    "password": "chevreau"
+    "password": "chevreau",
+    "status": 1
   },{
     "id": 1,
     "name": "lea",
-    "password": "lea"
+    "password": "lea",
+    "status": 0
   },{
     "id": 2,
     "name": "nathan",
-    "password": "nathan"
+    "password": "nathan",
+    "status": 1
   },{
     "id": 3,
     "name": "remi",
-    "password": "remi"
+    "password": "remi",
+    "status": 1
   },{
     "id": 4,
     "name": "jerem",
-    "password": "jeremy"
+    "password": "jeremy",
+    "status": 0
   },
   {
     "id": 5,
     "name": "admin",
-    "password": "administrateur"
+    "password": "administrateur",
+    "status": 1
   }
 ]
 }

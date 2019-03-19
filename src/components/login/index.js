@@ -25,7 +25,8 @@ class Login extends Component {
     return events.map(event => ({
       id: event.id,
       name: event.name,
-      password: event.password
+      pass: event.password,
+      status: event.status
     }))
   }
 
@@ -67,11 +68,12 @@ class Login extends Component {
     let { password } = this.state
 
     data.map((existingUsers) => {
-      if (existingUsers.name === username && existingUsers.password === password) {
+      if (existingUsers.name === username && existingUsers.pass === password) {
         username = this.state
-        password = existingUsers.name
+        password = existingUsers.pass
         userValidated = existingUsers.id + existingUsers.name
         localStorage.setItem('user', JSON.stringify(existingUsers.name))
+        localStorage.setItem('status', JSON.stringify(existingUsers.status))
         this.redirect()
       }
       return ''
