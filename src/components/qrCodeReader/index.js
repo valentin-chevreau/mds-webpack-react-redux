@@ -19,6 +19,7 @@ class Reader extends Component {
       this.setState({
         result: data
       })
+      this.compareDataToMock()
     }
   }
 
@@ -39,16 +40,17 @@ class Reader extends Component {
   compareDataToMock() {
     const { courses } = this.props
     const { data } = courses
+    const { result } = this.state
     let item = ''
     const now = this.formatDate()
     data.map((course) => {
-      if (course.date === now) {
-        item = course.id
-          + course.name
-          + course.teacher_name
-          + course.classroom
-          + course.public
-          + course.date
+      item = course.qrcodeData
+      if (item === result) {
+        if (course.date === now) {
+          this.setState({ presenceOk: true })
+        } else {
+          this.setState({ presenceOk: false })
+        }
       }
       return ''
     })
@@ -56,38 +58,19 @@ class Reader extends Component {
   }
 
   render() {
-    const { result } = this.state
     const { delay } = this.state
 
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-5">
-            <h1>
-              Lecture du QrCode
-            </h1>
-            <p>
-              Pour lire votre QrCode, placez celui-ci dans la zone rouge affichée.
-            </p>
+          <div className="col-lg-4" />
+          <div className="col-lg-4">
             <QrReader
               delay={delay}
               onError={this.handleError}
               onScan={this.handleScan}
-              style={{ width: '100%' }}
+              style={{ width: '105%' }}
             />
-          </div>
-          <div className="col-lg-5">
-            <h1>Résultats</h1>
-            <p>
-              Les informations de votre QrCode
-              <br />
-              {result}
-              <br />
-              <span>
-                Mock:
-                { this.compareDataToMock() }
-              </span>
-            </p>
           </div>
         </div>
       </div>
