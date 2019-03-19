@@ -1,3 +1,4 @@
+// Import needed modules
 import { fromJs } from 'immutable'
 import initialState from './initial-state'
 import actionsType from '../actions/actions-type'

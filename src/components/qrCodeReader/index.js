@@ -1,19 +1,25 @@
+// Import needed modules
 import React, { Component } from 'react'
 import QrReader from 'react-qr-reader'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 
+// Component to read the QrCode
 class Reader extends Component {
   constructor(props) {
     super(props)
+
+    // Initialise states
     this.state = {
       delay: 300,
-      result: 'No result',
+      result: '',
       data: props.courses.data,
-      presenceOk: false
+      presence: false
     }
     this.handleScan = this.handleScan.bind(this)
   }
 
+  // To scan
   handleScan(data) {
     if (data) {
       this.setState({
@@ -23,10 +29,12 @@ class Reader extends Component {
     }
   }
 
+  // If there is a error
   handleError(err) {
     return err
   }
 
+  // To format the date
   formatDate() {
     const date = new Date()
     const day = `0${date.getDate()}`.slice(-2)
@@ -37,42 +45,56 @@ class Reader extends Component {
     return dateString
   }
 
+  // To compare the Data received by the QrCode and the mock
   compareDataToMock() {
+    // Declare const & let to update state and props
     const { courses } = this.props
     const { data } = courses
     const { result } = this.state
     let item = ''
     const now = this.formatDate()
+
+    // For each value of Data,
     data.map((course) => {
       item = course.qrcodeData
       if (item === result) {
         if (course.date === now) {
-          this.setState({ presenceOk: true })
+          this.setState({ presence: true })
         } else {
-          this.setState({ presenceOk: false })
+          this.setState({ presence: false })
         }
       }
-      return ''
+      return <Redirect to="/logout" />
     })
     return item
   }
 
   render() {
-    const { delay } = this.state
+    // Declare const & let to update state and props
+    const { delay, result, presence } = this.state
+    if (presence) {
+      return <Redirect to="/logout" />
+    }
 
+    // What to return in this page
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-lg-4" />
-          <div className="col-lg-4">
-            <QrReader
-              delay={delay}
-              onError={this.handleError}
-              onScan={this.handleScan}
-              style={{ width: '105%' }}
-            />
+        { localStorage.getItem('user') === null ? (
+          <Redirect to="/login" refresh="true" />
+        ) : (
+          <div className="row">
+            <div className="col-lg-4" />
+            <div className="col-lg-4">
+              <QrReader
+                delay={delay}
+                onError={this.handleError}
+                onScan={this.handleScan}
+                style={{ width: '105%' }}
+              />
+              {result}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }

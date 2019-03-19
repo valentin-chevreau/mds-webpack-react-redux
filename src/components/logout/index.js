@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import Redirect from 'react-router/es/Redirect'
 
-/**
- * Redirect to Login Page after logout
- */
+// Component to Logout
 class Logout extends Component {
   signout() {
     localStorage.clear()

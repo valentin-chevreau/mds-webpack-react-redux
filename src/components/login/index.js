@@ -1,12 +1,15 @@
+// Import needed modules
 import React, { Component } from 'react'
-
 import Redirect from 'react-router/es/Redirect'
+import { connect } from 'react-redux'
 import user from '../../mock/user.json'
 
+// Component to Login
 class Login extends Component {
   constructor(props) {
     super(props)
 
+    // Initialise states
     this.state = {
       username: '',
       password: '',
@@ -17,10 +20,12 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  // To get users Data
   componentDidMount() {
     this.setState({ data: this.formatUsers(user.users) })
   }
 
+  // To format user data
   formatUsers(events) {
     return events.map(event => ({
       id: event.id,
@@ -30,6 +35,7 @@ class Login extends Component {
     }))
   }
 
+  // Update user state
   update() {
     this.state.data = this.formatUsers(user.users)
     this.setState({
@@ -37,16 +43,19 @@ class Login extends Component {
     })
   }
 
+  // To handle data username in form
   handleUsernameChange(event) {
     event.preventDefault()
     this.setState({ username: event.target.value })
   }
 
+  // To handle data username in form
   handlePasswordChange(event) {
     event.preventDefault()
     this.setState({ password: event.target.value })
   }
 
+  // Actions to do where form is submitted
   handleSubmit(event) {
     event.preventDefault()
     this.updateBind = this.update.bind(this)
@@ -57,10 +66,12 @@ class Login extends Component {
     this.checkingExistingUser()
   }
 
+  // To redirect after actions
   redirect() {
     this.setState({ redirect: true })
   }
 
+  // To know if the user who wants to connect exists
   checkingExistingUser() {
     let userValidated = ''
     const { data } = this.state
@@ -82,10 +93,17 @@ class Login extends Component {
   }
 
   render() {
+    // Declare const & let to update state and props
     const { username, password, redirect } = this.state
+
     if (redirect) {
+      if (localStorage.getItem('status') === '0') {
+        return <Redirect to="/reader" />
+      }
       return <Redirect to="/qrcode" />
     }
+
+    // What to return in this page
     return (
       <div className="container">
         <div className="row">
@@ -103,6 +121,7 @@ class Login extends Component {
                     value={username}
                     placeholder="Username"
                     onChange={this.handleUsernameChange}
+                    autoComplete="username"
                   />
                 </div>
                 <br />
@@ -114,6 +133,7 @@ class Login extends Component {
                     value={password}
                     placeholder="Password"
                     onChange={this.handlePasswordChange}
+                    autoComplete="current-password"
                   />
                   <br />
                 </div>
@@ -129,4 +149,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default connect(state => state)(Login)

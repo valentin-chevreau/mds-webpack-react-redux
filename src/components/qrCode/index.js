@@ -1,10 +1,10 @@
+// Import needed modules
 import React, { Component } from 'react'
 import QRCode from 'qrcode-react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 
-/**
- * Class courses to display QrCode
- */
+// Component to display the QrCode
 class Courses extends Component {
   constructor(props) {
     super(props)
@@ -17,6 +17,7 @@ class Courses extends Component {
    * formatDate()
    * @returns {string}
    */
+  // To format the date
   formatDate() {
     const date = new Date()
     const day = `0${date.getDate()}`.slice(-2)
@@ -28,7 +29,7 @@ class Courses extends Component {
   }
 
   /**
-   *
+   * dataToString()
    * @returns {string}
    */
   dataToString() {
@@ -42,13 +43,7 @@ class Courses extends Component {
     const now = this.formatDate()
     data.map((lesson) => {
       if (lesson.date === now) {
-        qrCode = lesson.id
-          + lesson.name
-          + lesson.teacher_name
-          + lesson.classroom
-          + lesson.public
-          + lesson.date
-        // console.log(localStorage)
+        qrCode = lesson.qrcodeData
       }
       return ''
     })
@@ -62,27 +57,32 @@ class Courses extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-lg-4" />
-          <div className="col-lg-4">
-            {this.dataToString() ? (
-              <QRCode
-                value={this.dataToString()}
-                size={340}
-                includeMargin={false}
-                bgColor="#FFFFFF"
-                fgColor="#000000"
-                level="J"
-                renderAs="canvas"
-              />
-            ) : (
-              <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Aucun cours prévu ce jour.</strong>
-              </div>
+        { localStorage.getItem('user') === null ? (
+          <Redirect to="/login" refresh="true" />
+        ) : (
+          <div className="row">
+            <div className="col-lg-4" />
+            <div className="col-lg-4">
+              {this.dataToString() ? (
+                <QRCode
+                  value={this.dataToString()}
+                  size={340}
+                  includeMargin={false}
+                  bgColor="#FFFFFF"
+                  fgColor="#000000"
+                  level="J"
+                  renderAs="canvas"
+                />
+              ) : (
+                <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>Aucun cours prévu ce jour.</strong>
+                </div>
 
-            )}
+              )}
+            </div>
           </div>
-        </div>
+        )
+        }
       </div>
     )
   }
