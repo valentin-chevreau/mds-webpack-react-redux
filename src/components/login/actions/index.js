@@ -1,13 +1,6 @@
-/*
 import actionsType from './actions-type'
-import store from '../../../store'
 
-const getImage = data => ({
+export const getUser = username => ({
   type: actionsType.GET_USERS,
-
+  username
 })
-
-export const getUser = (data) => {
-  store.dispatch(getImage(data))
-}
-*/

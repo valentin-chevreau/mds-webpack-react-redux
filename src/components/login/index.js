@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Redirect from 'react-router/es/Redirect'
 import { connect } from 'react-redux'
 import user from '../../mock/user.json'
+import { getUser } from './actions'
 
 // Component to Login
 class Login extends Component {
@@ -11,13 +12,12 @@ class Login extends Component {
 
     // Initialise states
     this.state = {
-      username: '',
       password: '',
       redirect: false
     }
-    this.handleUsernameChange = this.handleUsernameChange.bind(this)
-    this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+
+    this.textInput = React.createRef()
+    this.handleClick = this.handleClick.bind(this)
   }
 
   // To get users Data
@@ -43,27 +43,21 @@ class Login extends Component {
     })
   }
 
-  // To handle data username in form
-  handleUsernameChange(event) {
-    event.preventDefault()
-    this.setState({ username: event.target.value })
-  }
+  /**
+   * handle click
+   * @param {Object} e
+   */
+  handleClick(e) {
+    e.preventDefault()
 
-  // To handle data username in form
-  handlePasswordChange(event) {
-    event.preventDefault()
-    this.setState({ password: event.target.value })
-  }
+    const { dispatch } = this.props
+    const username = this.textInput.current.value
 
-  // Actions to do where form is submitted
-  handleSubmit(event) {
-    event.preventDefault()
-    this.updateBind = this.update.bind(this)
-    const { username } = this.state
-    const { password } = this.state
-    this.updateBind(username)
-    this.updateBind(password)
+    console.log(this.textInput.current.value)
+
     this.checkingExistingUser()
+
+    dispatch(getUser(username))
   }
 
   // To redirect after actions
@@ -89,12 +83,13 @@ class Login extends Component {
       }
       return ''
     })
+
     return userValidated
   }
 
   render() {
     // Declare const & let to update state and props
-    const { username, password, redirect } = this.state
+    const { username, redirect } = this.state
 
     if (redirect) {
       if (localStorage.getItem('status') === '0') {
@@ -106,11 +101,12 @@ class Login extends Component {
     // What to return in this page
     return (
       <div className="container">
+        <h1>{username || ''}</h1>
         <div className="row">
           <div className="col-lg-4" />
           <div className="col-lg-4">
             <br />
-            <form onSubmit={this.handleSubmit}>
+            <form>
               <fieldset>
                 <legend>Login</legend>
                 <div>
@@ -118,10 +114,9 @@ class Login extends Component {
                     type="text"
                     className="form-control"
                     name="username"
-                    value={username}
                     placeholder="Username"
-                    onChange={this.handleUsernameChange}
                     autoComplete="username"
+                    ref={this.textInput}
                   />
                 </div>
                 <br />
@@ -130,14 +125,12 @@ class Login extends Component {
                     type="password"
                     className="form-control"
                     name="password"
-                    value={password}
                     placeholder="Password"
-                    onChange={this.handlePasswordChange}
                     autoComplete="current-password"
                   />
                   <br />
                 </div>
-                <input type="submit" value="Envoyer" className="btn btn-info col-lg-12" onClick={this.handleSubmit} />
+                <input type="submit" value="Envoyer" className="btn btn-info col-lg-12" onClick={this.handleClick} />
                 <br />
               </fieldset>
             </form>
@@ -149,4 +142,6 @@ class Login extends Component {
   }
 }
 
-export default connect(state => state)(Login)
+export default connect(state => ({
+  username: state.login.username
+}))(Login)

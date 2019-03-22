@@ -1,22 +1,21 @@
 // Import needed modules
-import { fromJs } from 'immutable'
+import { fromJS } from 'immutable'
 import initialState from './initial-state'
 import actionsType from '../actions/actions-type'
 
-const getUser = (state, actions) => (
-  fromJs(state)
-    .setIn(['users'], actions.users)
+const getUser = (state, action) => (
+  fromJS(state)
+    .setIn(['username'], action.username)
     .toJS()
 )
 
-const users = (state = initialState, actions) => {
-  switch (actions.type) {
-    // use the action GET_USERS
+const login = (state = initialState, action) => {
+  switch (action.type) {
     case actionsType.GET_USERS:
-      return getUser(state, actions)
+      return getUser(state, action)
     default:
       return state
   }
 }
 
-export default users
+export default login
