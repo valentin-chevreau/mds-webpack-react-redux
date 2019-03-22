@@ -17,6 +17,7 @@ class Login extends Component {
     }
 
     this.textInput = React.createRef()
+    this.textPassword = React.createRef()
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -52,10 +53,12 @@ class Login extends Component {
 
     const { dispatch } = this.props
     const username = this.textInput.current.value
+    const password = this.textPassword.current.value
 
-    console.log(this.textInput.current.value)
+    console.log(username)
+    console.log(password)
 
-    this.checkingExistingUser()
+    this.checkingExistingUser(username, password)
 
     dispatch(getUser(username))
   }
@@ -66,16 +69,12 @@ class Login extends Component {
   }
 
   // To know if the user who wants to connect exists
-  checkingExistingUser() {
+  checkingExistingUser(username, password) {
     let userValidated = ''
     const { data } = this.state
-    let { username } = this.state
-    let { password } = this.state
 
     data.map((existingUsers) => {
       if (existingUsers.name === username && existingUsers.pass === password) {
-        username = this.state
-        password = existingUsers.pass
         userValidated = existingUsers.id + existingUsers.name
         localStorage.setItem('user', JSON.stringify(existingUsers.name))
         localStorage.setItem('status', JSON.stringify(existingUsers.status))
@@ -127,6 +126,7 @@ class Login extends Component {
                     name="password"
                     placeholder="Password"
                     autoComplete="current-password"
+                    ref={this.textPassword}
                   />
                   <br />
                 </div>
